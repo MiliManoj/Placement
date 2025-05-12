@@ -1,6 +1,5 @@
 from flask import Flask, abort, render_template, request, redirect, url_for, session, jsonify, send_from_directory, flash
 from flask_cors import CORS
-from flask_mysqldb import MySQL
 from werkzeug.utils import secure_filename
 import os
 import mysql.connector
