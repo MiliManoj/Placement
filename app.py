@@ -19,10 +19,10 @@ import re
 
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True)
+CORS(app, supports_credentials=True, origins=["https://prep360.onrender.com"])
 app.config['UPLOAD_FOLDER'] = 'uploads'  
 app.config['ALLOWED_EXTENSIONS'] = {'pdf'}
-CORS(app)
+
 
 # Secret Key for Session
 app.secret_key = 'your_secret_key'
