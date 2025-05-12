@@ -15,10 +15,11 @@ import pymysql.cursors
 from datetime import datetime, date
 import re
 
-CORS(app, supports_credentials=True)
+
 
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True)
 app.config['UPLOAD_FOLDER'] = 'uploads'  
 app.config['ALLOWED_EXTENSIONS'] = {'pdf'}
 CORS(app)
