@@ -89,14 +89,15 @@ def index():
 
 @app.route('/dashboard')
 def dashboard():
-    role = session.get('role', '').lower()
+    role = session.get('role', '').lower()  # Get the role from the session
     if role == 'student':
         return redirect(url_for('student_home'))
     elif role == 'admin':
         return redirect(url_for('admin_home'))
     elif role == 'company':
         return redirect(url_for('company_home'))
-    return redirect(url_for('index'))
+    return redirect(url_for('index'))  # Redirect to the index if no role
+
 
 @app.route('/student_home')
 def student_home():
