@@ -20,6 +20,10 @@ import re
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True, origins=["https://prep360.onrender.com"])
+app.config.update(
+    SESSION_COOKIE_SAMESITE='None',
+    SESSION_COOKIE_SECURE=True
+)
 app.config['UPLOAD_FOLDER'] = 'uploads'  
 app.config['ALLOWED_EXTENSIONS'] = {'pdf'}
 
