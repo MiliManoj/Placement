@@ -15,6 +15,7 @@ import pymysql.cursors
 from datetime import datetime, date
 import re
 
+CORS(app, supports_credentials=True)
 
 
 app = Flask(__name__)
