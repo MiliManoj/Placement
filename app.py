@@ -38,21 +38,17 @@ app.config['MYSQL_PASSWORD'] = 'Root12345'  # Replace with your password
 app.config['MYSQL_DB'] = 'project'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
-# Initialize MySQL
-mysql = MySQL(app)
+
 
 def get_db():
-    conn = MySQLdb.connect(
+    conn = mysql.connector.connect(
         host="localhost",
         user="root",
         password="Root12345",
-        database="project",
-        charset="utf8mb4",
-        cursorclass=MySQLdb.cursors.DictCursor
+        database="project"
     )
-    cursor = conn.cursor()  # 🔴 Create a cursor
-    return conn, cursor 
-
+    cursor = conn.cursor(dictionary=True)
+    return conn, cursor
 @app.teardown_appcontext
 def close_db(exception):
     db = g.pop('db', None)
@@ -62,14 +58,14 @@ def close_db(exception):
 
 def get_db_connection():
     try:
-        conn = MySQLdb.connect(
+        conn = mysql.connector.connect(
             host="localhost",
             user="root",
             password="Root12345",
             database="project"
         )
         return conn
-    except MySQLdb.Error as e:
+    except mysql.connector.Error as e:
         print("Database connection error:", e)
         return None
 
