@@ -139,7 +139,8 @@ def login():
     password = data.get('password', '').strip()
     role = data.get('role', '').strip().lower()
 
-    cur = mysql.connection.cursor()
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
     cur.execute("SELECT * FROM users WHERE LOWER(username) = %s", (username,))
     user = cur.fetchone()
 
