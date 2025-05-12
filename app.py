@@ -125,15 +125,19 @@ def company_home():
 
 # ================= LOGIN =================
 
-@app.route('/login', methods=['GET','POST'])
+@app.route('/login', methods=['GET', 'POST', 'OPTIONS'])
 def login():
+    if request.method == 'OPTIONS':
+        # Respond OK to preflight
+        return '', 200
+
     data = request.get_json(silent=True)
     if not data:
         return jsonify({"message": "Invalid request format"}), 400
 
     username = data.get('username', '').strip().lower()
     password = data.get('password', '').strip()
-    role = data.get('role', '').strip().lower()  # Get role
+    role = data.get('role', '').strip().lower()
 
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM users WHERE LOWER(username) = %s", (username,))
@@ -142,9 +146,9 @@ def login():
     if not user:
         return jsonify({"message": "Invalid credentials"}), 401
 
-    if password == user['password']:  # Use hashing in production
+    if password == user['password']:
         if user['role'].lower() != role:
-            return jsonify({"message": "Unauthorized role"}), 403  # Check role
+            return jsonify({"message": "Unauthorized role"}), 403
 
         session.clear()
         session['user_id'] = user['id']
@@ -154,8 +158,6 @@ def login():
         return jsonify({"message": "Login successful"}), 200
     else:
         return jsonify({"message": "Invalid credentials"}), 401
-
-
 
 
 # ================= SIGNUP =================
